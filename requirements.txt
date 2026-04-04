@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pdfminer.six
+pypdf
+python-docx
+requests
+python-multipart
+google-genai
