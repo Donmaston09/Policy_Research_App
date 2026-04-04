@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Research AI Engine | Tony Onoja</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx@9.5.1/dist/index.iife.min.js"></script>
+</head>
+
+<body>
+    <div class="background-elements">
+        <div class="blob shape-1"></div>
+        <div class="blob shape-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Policy Analysis Engine</h1>
+            <p>Transforming research findings into actionable SMART strategies.</p>
+        </header>
+
+        <main>
+            <section class="settings-section glass-panel">
+                <h3>AI Configuration</h3>
+                <div class="config-grid">
+                    <div class="input-group">
+                        <label for="api-provider">Provider</label>
+                        <select id="api-provider">
+                            <option value="gemini">Google Gemini 3 Flash</option>
+                            <option value="openai">OpenAI GPT-4o</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="api-key">API Key</label>
+                        <input type="password" id="api-key" placeholder="Paste your key here...">
+                    </div>
+                </div>
+                <p class="helper-text">Your key is processed securely and never stored on our servers.</p>
+            </section>
+
+            <div class="workspace-grid">
+                <section class="input-section glass-panel">
+                    <div class="input-header">
+                        <label for="findings-input">Research Findings</label>
+                        <div class="panel-actions">
+                            <button id="copy-findings-btn" type="button" class="secondary-btn">Copy Findings</button>
+                            <input type="file" id="file-upload" style="display: none;" accept=".pdf,.doc,.docx,.txt,.rtf,.md">
+                            <button type="button" class="secondary-btn"
+                                onclick="document.getElementById('file-upload').click()">Upload Document</button>
+                        </div>
+                    </div>
+                    <label for="file-upload" id="dropzone" class="dropzone" tabindex="0">
+                        <span class="dropzone-title">Drag and drop a document here</span>
+                        <span class="dropzone-subtitle">Or click to choose a PDF, DOC, DOCX, TXT, RTF, or MD file</span>
+                    </label>
+                    <p id="selected-file" class="selected-file">No document selected yet.</p>
+                    <div class="upload-progress hidden" id="upload-progress-wrap" aria-live="polite">
+                        <div class="upload-progress-bar">
+                            <div id="upload-progress-bar" class="upload-progress-fill"></div>
+                        </div>
+                        <p id="upload-progress-text" class="upload-progress-text">Uploading...</p>
+                    </div>
+                    <p id="upload-status" class="upload-status">Upload a PDF, DOC, DOCX, TXT, RTF, or MD file and it will be pasted here before analysis.</p>
+                    <textarea id="findings-input" placeholder="Paste findings here..."></textarea>
+                    <p class="helper-text">You can paste text directly, upload a file, or edit the extracted text before generating recommendations.</p>
+                    <div class="actions">
+                        <button id="generate-btn" class="primary-btn">
+                            <span class="btn-text">Generate SMART Recommendations</span>
+                            <div class="spinner hidden"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section id="results-section" class="results-section glass-panel hidden">
+                    <div class="results-header">
+                        <h2>Generated Strategy</h2>
+                        <div class="results-meta">
+                            <span id="model-badge" class="badge">Processing...</span>
+                            <div class="export-actions">
+                                <button id="copy-results-btn" type="button" class="secondary-btn export-btn">Copy Output</button>
+                                <button id="download-json-btn" type="button" class="secondary-btn export-btn">Download JSON</button>
+                                <button id="download-md-btn" type="button" class="secondary-btn export-btn">Download Markdown</button>
+                                <button id="download-txt-btn" type="button" class="secondary-btn export-btn">Download Text</button>
+                                <button id="download-docx-btn" type="button" class="secondary-btn export-btn">Download DOCX</button>
+                                <button id="print-pdf-btn" type="button" class="secondary-btn export-btn">Print / PDF</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="results-content" class="results-content"></div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="glass-panel creator-footer">
+            <div class="creator-info">
+                <h3>Tony Onoja</h3>
+                <p>School of Health Sciences, University of Surrey, UK</p>
+                <p>a.onoja@surrey.com</p>
+            </div>
+            <hr>
+            <div class="support-box">
+                <p><strong>Support the Cause:</strong> I am raising funds for Internally displaced (IDP) children of
+                    genocide in the
+                    Middle Belt Nigeria to have access to computer literacy and education.</p>
+                <a href="https://paypal.me/Onoja412" target="_blank" class="paypal-btn">Support via PayPal</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/main.js"></script>
+</body>
+
+</html>
