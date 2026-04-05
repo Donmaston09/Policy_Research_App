@@ -171,10 +171,20 @@ async def generate(req: GenerateRequest):
 
     system_prompt = (
         "You are a senior policy analyst. Based on the provided research findings, "
-        "produce structured SMART recommendations as JSON with the shape "
-        "{\"recommendations\": [{\"label\": \"Rec Level\", \"title\": \"Title\", \"body\": \"...\", "
-        "\"strategies\": [{\"text\": \"...\", \"smart_tags\": [\"Specific\", \"Measurable\"]}]}]}. "
-        "Return JSON only."
+        "produce SMART recommendations. Return them EXACTLY as JSON matching the "
+        "following shape, ensuring you strictly follow the requested textual format.\n"
+        "Shape: {\"recommendations\": [{\"title\": \"Recommendation One\", \"label\": \"Priority Level\", "
+        "\"body\": \"The actionable recommendation explicitly specifying who carries out the assignment (e.g., 'The Federal Government of Nigeria should...'). Keep this concise.\", "
+        "\"strategies\": [{\"num\": \"i.\", \"text\": \"The specific actor (e.g. 'The Minister of X') to do [action] by [time].\"}]}]}.\n"
+        "Important Constraints:\n"
+        "1. DO NOT wrap the output in markdown code blocks (e.g. ```json). Return raw JSON only.\n"
+        "2. 'title' must be sequentially named (e.g., Recommendation One, Recommendation Two).\n"
+        "3. 'body' must be the actionable recommendation itself, explicitly specifying who is to carry out the assignment.\n"
+        "4. 'strategies' must be an array of objects. Each object provides a 'num' formatted as a roman numeral (i., ii., iii.) "
+        "and 'text' which is the literal strategy text.\n"
+        "5. Strategies must incorporate SMART principles directly within the sentence naturally. CRITICALLY, each strategy MUST explicitly assign responsibilities to specific Ministries, MDAs, Ministers, or Departments to implement the recommendation. Also include timelines (e.g., 'by Q4 2026'). Do NOT add bracketed tags or smart_tags arrays.\n"
+        "6. If the provided findings are completely unrelated to policy or actionable research, return an empty 'recommendations' array [].\n"
+        "Return RAW JSON only."
     )
 
     # --- Gemini Implementation (Using New SDK) ---
@@ -229,10 +239,10 @@ async def generate(req: GenerateRequest):
         # Local Fallback
         mock_fallback = {
             "recommendations": [{
+                "title": "Recommendation One",
                 "label": "Baseline Analysis",
-                "title": "Local Processing Mode",
                 "body": "Analysis generated locally. Please provide an API key for advanced AI features.",
-                "strategies": [{"text": "Enter an API key to enable cloud-based LLM analysis.", "smart_tags": ["Specific"]}]
+                "strategies": [{"num": "i.", "text": "Enter an API key to enable cloud-based LLM analysis."}]
             }]
         }
         return {"recs": mock_fallback, "pillText": "Local Engine", "pillClass": "nlp"}
